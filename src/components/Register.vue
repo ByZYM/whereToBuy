@@ -64,7 +64,10 @@ export default {
   height: 100%;
 }
 .top>div {
-  margin-bottom: 60px;
+  margin-bottom: 40px;
+}
+.top>div:last-child{
+  margin-bottom: 0;
 }
 .top>div>button{
   width: 100%;

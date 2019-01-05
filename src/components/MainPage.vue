@@ -110,6 +110,9 @@ export default {
   min-height: 100vh;
   flex-direction: column;
 }
+.container{
+	flex: 1;
+}
 .container>div{
   margin-bottom: 10px;
 }
