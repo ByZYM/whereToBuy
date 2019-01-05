@@ -3,8 +3,8 @@
     <div class="bgimg">
       <div class="top"></div>
       <div class="bottom">
-        <button type="button" class="btn btn-default">注册</button>
-        <button type="button" class="btn btn-primary">登录</button>
+        <button type="button" @click="goRegister" class="btn btn-default">注册</button>
+        <button type="button" @click="goLogin" class="btn btn-success">登录</button>
       </div>
     </div>
   </div>
@@ -16,6 +16,14 @@ export default {
   data () {
     return {
       msg: 'Welcome to Index'
+    }
+  },
+  methods: {
+    goLogin () {
+      this.$router.push({path: 'Login'})
+    },
+    goRegister () {
+      this.$router.push({path: 'Register'})
     }
   }
 }

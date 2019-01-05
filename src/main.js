@@ -6,7 +6,7 @@ import router from './router'
 import './assets/bootstrap/js/jquery.slim.min.js'
 import './assets/bootstrap/css/bootstrap.css'
 import './assets/bootstrap/js/bootstrap.js'
-  
+
 Vue.config.productionTip = false
 
 /* eslint-disable no-new */

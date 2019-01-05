@@ -5,6 +5,7 @@
     <router-link :to="{ name: 'Index'}">Index</router-link>
     <router-link :to="{ name: 'Login'}">Login</router-link>
     <router-link :to="{ name: 'Register'}">Register</router-link>
+    <router-link :to="{ name: 'MainPage'}">MainPage</router-link>
 
     <ul>
       <li>
