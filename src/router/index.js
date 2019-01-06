@@ -5,6 +5,7 @@ import Index from '@/components/Index'
 import Login from '@/components/Login'
 import Register from '@/components/Register'
 import MainPage from '@/components/MainPage'
+import MapNavi from '@/components/Map/MapNavi'
 import SearchPage from '@/components/SearchPage'
 import SearchDetail from '@/components/SearchDetail'
 
@@ -36,6 +37,11 @@ export default new Router({
       path: '/mainPage',
       name: 'MainPage',
       component: MainPage
+    },
+    {
+      path: '/Map/MapNavi',
+      name: 'MapNavi',
+      component: MapNavi
     },
     {
       path: '/searchPage',
