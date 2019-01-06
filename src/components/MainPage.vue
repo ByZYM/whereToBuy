@@ -39,6 +39,7 @@
           <span class="sr-only">Next</span>
         </a>
       </div>
+
       <div class="container">
         <div class="row">
           <div class="col-xs-6">
@@ -49,41 +50,70 @@
           </div>
         </div>
       </div>
+
       <div class="container">
         <div class="row">
-          <div class="col-xs-4 col-md-4">
-            <a href="#" class="thumbnail">
-              <img src="../assets/logo.png" alt="logo">
-            </a>
+          <span>分类商品</span>
+        </div>
+        <div class="box">
+          <div class="row">
+            <div class="col-xs-4 col-md-4">
+              <a href="#" class="thumbnail">
+                <img src="../assets/logo.png" alt="logo">
+              </a>
+            </div>
+            <div class="col-xs-4 col-md-4">
+              <a href="#" class="thumbnail">
+                <img src="../assets/logo.png" alt="logo">
+              </a>
+            </div>
+            <div class="col-xs-4 col-md-4">
+              <a href="#" class="thumbnail">
+                <img src="../assets/logo.png" alt="logo">
+              </a>
+            </div>
           </div>
-          <div class="col-xs-4 col-md-4">
-            <a href="#" class="thumbnail">
-              <img src="../assets/logo.png" alt="logo">
-            </a>
-          </div>
-          <div class="col-xs-4 col-md-4">
-            <a href="#" class="thumbnail">
-              <img src="../assets/logo.png" alt="logo">
-            </a>
+          <div class="row">
+            <div class="col-xs-4 col-md-4">
+              <a href="#" class="thumbnail">
+                <img src="../assets/logo.png" alt="logo">
+              </a>
+            </div>
+            <div class="col-xs-4 col-md-4">
+              <a href="#" class="thumbnail">
+                <img src="../assets/logo.png" alt="logo">
+              </a>
+            </div>
+            <div class="col-xs-4 col-md-4">
+              <a href="#" class="thumbnail">
+                <img src="../assets/logo.png" alt="logo">
+              </a>
+            </div>
           </div>
         </div>
       </div>
+
       <div class="newGoods container">
         <div class="row">
-          <div class="col-xs-4 col-md-4">
-            <a href="#" class="thumbnail">
-              <img src="../assets/logo.png" alt="logo">
-            </a>
-          </div>
-          <div class="col-xs-4 col-md-4">
-            <a href="#" class="thumbnail">
-              <img src="../assets/logo.png" alt="logo">
-            </a>
-          </div>
-          <div class="col-xs-4 col-md-4">
-            <a href="#" class="thumbnail">
-              <img src="../assets/logo.png" alt="logo">
-            </a>
+          <span>新品推荐</span>
+        </div>
+        <div class="box">
+          <div class="row">
+            <div class="col-xs-4 col-md-4">
+              <a href="#" class="thumbnail">
+                <img src="../assets/logo.png" alt="logo">
+              </a>
+            </div>
+            <div class="col-xs-4 col-md-4">
+              <a href="#" class="thumbnail">
+                <img src="../assets/logo.png" alt="logo">
+              </a>
+            </div>
+            <div class="col-xs-4 col-md-4">
+              <a href="#" class="thumbnail">
+                <img src="../assets/logo.png" alt="logo">
+              </a>
+            </div>
           </div>
         </div>
       </div>
@@ -94,10 +124,10 @@
 
 <script>
 export default {
-  name: 'Register',
+  name: 'MainPage',
   data () {
     return {
-      msg: 'Welcome to Register'
+      msg: 'Welcome to MainPage'
     }
   }
 }
@@ -109,9 +139,6 @@ export default {
   display: flex;
   min-height: 100vh;
   flex-direction: column;
-}
-.container{
-	flex: 1;
 }
 .container>div{
   margin-bottom: 10px;
@@ -136,7 +163,10 @@ export default {
 .carousel-inner img{
   margin: auto;
 }
-
+.box{
+  /*border-color: #c70c15;*/
+  border:1px solid red;
+}
 /*.recommend{*/
   /*zoom:1;*/
   /*overflow: hidden;*/
@@ -152,17 +182,17 @@ export default {
 /*.recommend-right{*/
   /*float: right;*/
 /*}*/
-.sortedGoods{
-  border-color: #c70c15;
-  border: dashed;
-}
-.sortedGoodsItem>img{
-  margin-left: 20px;
-  margin-right: 20px;
-}
-.newGoods{
-  border-color: #c70c15;
-  border: dashed;
-}
+/*.sortedGoods{*/
+  /*border-color: #c70c15;*/
+  /*border: dashed;*/
+/*}*/
+/*.sortedGoodsItem>img{*/
+  /*margin-left: 20px;*/
+  /*margin-right: 20px;*/
+/*}*/
+/*.newGoods{*/
+  /*border-color: #c70c15;*/
+  /*border: dashed;*/
+/*}*/
 
 </style>

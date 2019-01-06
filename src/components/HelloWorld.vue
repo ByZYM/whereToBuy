@@ -7,6 +7,9 @@
     <router-link :to="{ name: 'Register'}">Register</router-link>
     <router-link :to="{ name: 'MainPage'}">MainPage</router-link>
     <router-link :to="{ name: 'MapNavi'}">MapNavi</router-link>
+    <router-link :to="{ name: 'SearchPage'}">SearchPage</router-link>
+    <router-link :to="{ name: 'SearchDetail'}">SearchDetail</router-link>
+
   </div>
 </template>
 

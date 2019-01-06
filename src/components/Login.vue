@@ -14,6 +14,7 @@
             <span class="input-group-addon" id="basic-addon2"><span class="glyphicon glyphicon-lock"></span></span>
             <input type="password" class="form-control" placeholder="Password" aria-describedby="basic-addon1">
           </div>
+
           <div>
             <button id="loginBtn" @click="goMainPage" type="button" class="btn btn-primary">登录</button>
           </div>
@@ -53,12 +54,13 @@ export default {
 <style scoped>
 .login{
   display: flex;
+  min-height: 100vh;
   flex-direction: column;
-  flex: 1;
 }
 .bgimg {
   background:url(../assets/background.png) no-repeat;
   background-size: 100% 100%;
+  flex:1;
 }
 .container{
   width: 80%;
@@ -70,9 +72,6 @@ export default {
 }
 .top>div{
   margin-bottom: 60px;
-}
-.top>div:last-child{
-  margin-bottom: 0px;
 }
 .top>div>button{
   width: 100%;
