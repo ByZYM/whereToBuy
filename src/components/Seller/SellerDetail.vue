@@ -52,7 +52,7 @@
 						<input type="text" v-model="seller.address" class="form-control" placeholder="Address" aria-describedby="sizing-addon6">
 					</div>
 				</div>
-				<div class="form-group">
+				<!--<div class="form-group">
 
 					<img style="width: 70px;height: 70px;border-radius: 70px;" v-if='pictureData!=null' :src="pictureData">
 					<label v-else>{{picture.name}}</label>
@@ -60,9 +60,19 @@
 						<span>浏览</span>
 					<input type="file" v-on:change="onChange($event)" id="exampleInputFile" capture="camera" accept="image/*" name="cameraInput" multiple="multiple" />
 					</span>
-				</div>
-				<button type="submit" @click="submitSeller" class="btn btn-lg">提交</button>
+				</div>-->
+				<button @click="submitSeller" class="btn btn-lg">提交</button>
 			</form>
+			<div class="form-group">
+
+				<img style="width: 70px;height: 70px;border-radius: 70px;" v-if='pictureData!=null' :src="pictureData">
+				<label v-else>{{picture.name}}</label>
+				<span class="btn btn-success fileinput-button">
+						<span>浏览上传</span>
+				<input type="file" v-on:change="onChange($event)" id="exampleInputFile" capture="camera" accept="image/*" name="cameraInput" multiple="multiple" />
+				</span>
+			</div>
+
 		</div>
 	</div>
 </template>
@@ -75,45 +85,73 @@
 					name: "请上传头像"
 				},
 				pictureData: null,
-				seller: {
-
-				}
+				seller: this.config.user
 			}
-		},
-		mounted(){
-			this.seller = this.config.user
 		},
 		methods: {
 			onChange: function(event) {
 				this.picture = event.target.files[0]; // get input file object
-				console.log(this.picture);
-				var reader = new FileReader()
-				reader.readAsDataURL(this.picture)
-				var that = this
-				reader.onload = function() {
-					that.pictureData = this.result
-				}
-			},
-			submitSeller: function() {
-				this.$http.post("/upload", {
-					address: this.seller.address
-				}).then((data) => {
-					console.log(data)
-				})
-			},
-			upload: function() {
+				
 				var that = this;
 				var formData = new FormData();
-				formData.append('picture', this.picture);
+				formData.set('file', event.target.files[0]);
+				console.log(formData.get('file'))
 				// specify Content-Type, with formData as well
-				this.$http.post('/upload', formData, {
+				this.$http.post(that.ip+'/upload', formData, {
 					headers: {
 						'Content-Type': 'multipart/form-data'
 					}
 				}).then(function(res) {
 					res.json().then(function(result) {
-						that.result = result.info;
-						console.log(that.result);
+						console.log(result);
+						if(result.success ==true){
+							that.seller.images = result.message
+							console.log(1)
+							that.submitSeller()
+						}
+					});
+				}, function(res) {
+					console.log(res.body);
+				});
+				
+				/*console.log(this.picture);
+				var reader = new FileReader()
+				reader.readAsDataURL(this.picture)
+				var that = this
+				reader.onload = function() {
+					that.pictureData = this.result
+					that.upload()
+				}*/
+			},
+			submitSeller: function() {
+				var vm = this
+				this.$http.post(vm.ip + "/seller/update", vm.seller).then((res) => {
+					var d = res.data
+					console.log(vm.config.user)
+					if(d.success == true) {
+						console.log(vm.config.user)
+						alert("修改成功")
+						vm.config.user = vm.seller
+					}
+				})
+			},
+			upload: function() {
+				var that = this;
+				var formData = new FormData();
+				formData.set('file', this.pictureData);
+				console.log(formData.get('file'))
+				// specify Content-Type, with formData as well
+				this.$http.post(that.ip+'/upload', formData, {
+					headers: {
+						'Content-Type': 'multipart/form-data'
+					}
+				}).then(function(res) {
+					res.json().then(function(result) {
+						console.log(result);
+						if(result.success ==true){
+							seller.images = result.message
+							this.submitSeller()
+						}
 					});
 				}, function(res) {
 					console.log(res.body);

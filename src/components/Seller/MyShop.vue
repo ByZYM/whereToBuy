@@ -10,7 +10,7 @@
 				</div>
 			</div>
 			<div class="head">
-				<img src="../../assets/xiaowanzi.jpg" />{{config.user.nickName}}
+				<img :src="config.user.images" />{{config.user.nickName}}
 			</div>
 			<div class="infos">
 				<label style="font-size: 16px;line-height: 18px;font-weight: normal;color: #999;">基础信息</label>

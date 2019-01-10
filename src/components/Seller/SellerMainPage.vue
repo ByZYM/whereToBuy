@@ -11,7 +11,7 @@
 			</div>
 			<div class="head">
 				{{config.user.nickName}}
-				<img src="../../assets/xiaowanzi.jpg" />
+				<img :src="config.user.images" />
 			</div>
 			<div class="infos">
 				<div class="info">

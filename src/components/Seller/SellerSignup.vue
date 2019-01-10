@@ -61,7 +61,7 @@
 					<input type="file" v-on:change="onChange($event)" id="exampleInputFile" capture="camera" accept="image/*" name="cameraInput" multiple="multiple" />
 					</span>
 				</div>
-				<button type="submit" @click="submitSeller" class="btn btn-lg">提交</button>
+				<button @click="submitSeller" class="btn btn-lg">提交</button>
 			</form>
 		</div>
 	</div>

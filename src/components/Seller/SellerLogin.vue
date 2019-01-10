@@ -28,7 +28,7 @@
 						<input type="password" v-model="seller.password" class="form-control" placeholder="Telephone" aria-describedby="sizing-addon3">
 					</div>
 				</div>
-				<button type="submit" @click="submitSeller" class="btn btn-lg">提交</button>
+				<button @click="submitSeller" class="btn btn-lg">提交</button>
 			</form>
 		</div>
 	</div>
@@ -50,7 +50,7 @@
 					params: this.seller
 				}).then((res) => {
 					if(res.bodyText!='') {
-						console.log(vm.config)
+						console.log(vm.config.user)
 						vm.config.user = res.body
 						console.log(vm.config.user)
 						//跳转
