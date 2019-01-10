@@ -2,8 +2,8 @@
 	<div class="container">
 		<div id="detail">
 			<div class="tools">
-				<div class="cog">
-					<span class="glyphicon glyphicon-cog"></span>
+				<div class="cog" @click="returnPrev()">
+					<span class="glyphicon glyphicon-chevron-left"></span>
 				</div>
 				<div class="message">
 					<span class="glyphicon glyphicon-comment"></span>
@@ -44,7 +44,11 @@
 
 <script>
 	export default {
-
+		methods: {
+			returnPrev() {
+				this.$router.go(-1)
+			}
+		}
 	}
 </script>
 
@@ -138,11 +142,13 @@
 		display: flex;
 		flex-direction: column;
 	}
-	#manage>img{
+	
+	#manage>img {
 		flex: 2;
-		height:100px;
+		height: 100px;
 	}
-	#manage>div{
+	
+	#manage>div {
 		flex: 1;
 	}
 	

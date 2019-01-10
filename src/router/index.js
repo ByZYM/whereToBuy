@@ -14,6 +14,9 @@ import MyShop from '@/components/Seller/MyShop'
 import AddGood from '@/components/Seller/AddGood'
 import CommentReply from '@/components/Seller/CommentReply'
 import SellerDetail from '@/components/Seller/SellerDetail'
+import SellerSignup from '@/components/Seller/SellerSignup'
+import SellerLogin from '@/components/Seller/SellerLogin'
+
 
 Vue.use(VueRouter)
 //
@@ -104,6 +107,19 @@ const router = new VueRouter({
       path: '/Seller/SellerDetail',
       name: 'SellerDetail',
       component: SellerDetail
+    }
+    ,
+    {
+      path: '/Seller/SellerSignup',
+      name: 'SellerSignup',
+      component: SellerSignup
+    }
+    
+    ,
+    {
+      path: '/Seller/SellerLogin',
+      name: 'SellerLogin',
+      component: SellerLogin
     }
     ,
     {

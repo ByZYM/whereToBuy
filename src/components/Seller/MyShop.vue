@@ -2,7 +2,7 @@
 	<div class="container">
 		<div id="myshop">
 			<div class="tools">
-				<div class="cog">
+				<div class="cog" @click="returnPrev()">
 					<span class="glyphicon glyphicon-chevron-left"></span>
 				</div>
 				<div class="message">
@@ -10,26 +10,25 @@
 				</div>
 			</div>
 			<div class="head">
-				<img src="../../assets/xiaowanzi.jpg" />
-				蓝紫服饰旗舰店
+				<img src="../../assets/xiaowanzi.jpg" />{{config.user.nickName}}
 			</div>
 			<div class="infos">
 				<label style="font-size: 16px;line-height: 18px;font-weight: normal;color: #999;">基础信息</label>
 				<div class="info">
 					<div class="shopname-left">
 						<label>店铺名</label>
-						<label>蓝紫服饰旗舰店</label>
+						<label>{{config.user.nickName}}</label>
 					</div>
 					<div class="shopname-right">
-						
+
 						<div><button>修改</button></div>
 					</div>
 				</div>
-				
+
 				<div class="info">
 					<div class="shopname-left">
 						<label>服务电话</label>
-						<label>15881093100</label>
+						<label>{{config.user.phone}}</label>
 					</div>
 					<div class="shopname-right">
 						<div><button>修改</button></div>
@@ -41,7 +40,7 @@
 						<label>四川-成都</label>
 					</div>
 					<div class="shopname-right">
-						
+
 					</div>
 				</div>
 				<div class="info">
@@ -50,7 +49,7 @@
 						<label>NO.152352L</label>
 					</div>
 					<div class="shopname-right">
-						
+
 					</div>
 				</div>
 				<div class="info">
@@ -59,7 +58,7 @@
 						<label>2015-09-25</label>
 					</div>
 					<div class="shopname-right">
-						
+
 					</div>
 				</div>
 			</div>
@@ -70,7 +69,32 @@
 
 <script>
 	export default {
+		data() {
+			return {
+				
+			}
+		},
+		methods: {
+			returnPrev() {
+				this.$router.go(-1)
+			},
+		},
+		mounted() {
+			var vm = this
+			console.log(vm.config.user)
+			this.$http.get(this.ip + '/seller/findOne', {
+				params:vm.config.user
+			}).then(function(res) {
+				res.json().then(function(result) {
+					console.log(result);
+				});
+			}, function(res) {
+				console.log(res)
+				if(res.body.length > 0) {
 
+				}
+			});
+		}
 	}
 </script>
 
@@ -92,7 +116,7 @@
 		flex-direction: column;
 	}
 	
-	#myshop>.tools{
+	#myshop>.tools {
 		height: 40px;
 	}
 	
@@ -129,15 +153,15 @@
 		border-radius: 50px;
 	}
 	
-	#myshop>.infos{
-		background-color: rgb(231,235,238);
+	#myshop>.infos {
+		background-color: rgb(231, 235, 238);
 		height: 100vh;
 		flex: 1;
 		text-align: left;
 	}
 	
-	#myshop>.infos>.info{
-		background-color: rgb(211,220,227);
+	#myshop>.infos>.info {
+		background-color: rgb(211, 220, 227);
 		height: 45px;
 		line-height: 45px;
 		font-weight: bold;
@@ -145,33 +169,34 @@
 		display: flex;
 	}
 	
-	#myshop>.infos>.info>.shopname-left{
+	#myshop>.infos>.info>.shopname-left {
 		display: inline-block;
 		flex: 8;
 	}
 	
-	#myshop>.infos>.info>.shopname-left>label:last-child{
+	#myshop>.infos>.info>.shopname-left>label:last-child {
 		float: right;
 	}
 	
-	#myshop>.infos>.info>.shopname-right{
+	#myshop>.infos>.info>.shopname-right {
 		flex: 2;
 		float: right;
 	}
-	#myshop>.infos>.info>.shopname-right>div{
+	
+	#myshop>.infos>.info>.shopname-right>div {
 		float: right;
 		height: 20px;
 		line-height: 20px;
 		width: 60px;
 	}
-	#myshop>.infos>.info>.shopname-right>div>button{
+	
+	#myshop>.infos>.info>.shopname-right>div>button {
 		float: right;
 		margin-top: 13px;
 		margin-right: 13px;
-		background-color: rgb(232,137,45);
+		background-color: rgb(232, 137, 45);
 		height: 20px;
 		line-height: 20px;
 		border: none;
 	}
-	
 </style>

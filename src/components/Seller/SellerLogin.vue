@@ -10,7 +10,7 @@
 				</div>
 			</div>
 			<div class="head">
-				个人信息管理
+				登录
 			</div>
 
 		</div>
@@ -19,13 +19,7 @@
 				<div class="form-group">
 					<div class="input-group input-group-lg">
 						<span class="input-group-addon" id="sizing-addon1">账号</span>
-						<input type="text" v-model="seller.name" class="form-control" placeholder="Account" aria-describedby="sizing-addon1">
-					</div>
-				</div>
-				<div class="form-group">
-					<div class="input-group input-group-lg">
-						<span class="input-group-addon" id="sizing-addon2">昵称</span>
-						<input type="text" v-model="seller.nickName" class="form-control" placeholder="NickName" aria-describedby="sizing-addon2">
+						<input type="text" v-model="seller.username" class="form-control" placeholder="Account" aria-describedby="sizing-addon1">
 					</div>
 				</div>
 				<div class="form-group">
@@ -33,33 +27,6 @@
 						<span class="input-group-addon" id="sizing-addon3">密码</span>
 						<input type="password" v-model="seller.password" class="form-control" placeholder="Telephone" aria-describedby="sizing-addon3">
 					</div>
-				</div>
-				<div class="form-group">
-					<div class="input-group input-group-lg">
-						<span class="input-group-addon" id="sizing-addon4">手机号</span>
-						<input type="text" v-model="seller.phone" class="form-control" placeholder="Mobile" aria-describedby="sizing-addon4">
-					</div>
-				</div>
-				<div class="form-group">
-					<div class="input-group input-group-lg">
-						<span class="input-group-addon" id="sizing-addon5">邮箱</span>
-						<input type="email" v-model="seller.email" class="form-control" placeholder="Email" aria-describedby="sizing-addon5">
-					</div>
-				</div>
-				<div class="form-group">
-					<div class="input-group input-group-lg">
-						<span class="input-group-addon" id="sizing-addon6">地址</span>
-						<input type="text" v-model="seller.address" class="form-control" placeholder="Address" aria-describedby="sizing-addon6">
-					</div>
-				</div>
-				<div class="form-group">
-
-					<img style="width: 70px;height: 70px;border-radius: 70px;" v-if='pictureData!=null' :src="pictureData">
-					<label v-else>{{picture.name}}</label>
-					<span class="btn btn-success fileinput-button">
-						<span>浏览</span>
-					<input type="file" v-on:change="onChange($event)" id="exampleInputFile" capture="camera" accept="image/*" name="cameraInput" multiple="multiple" />
-					</span>
 				</div>
 				<button type="submit" @click="submitSeller" class="btn btn-lg">提交</button>
 			</form>
@@ -71,53 +38,29 @@
 	export default {
 		data() {
 			return {
-				picture: {
-					name: "请上传头像"
-				},
-				pictureData: null,
 				seller: {
 
-				}
+				},
 			}
 		},
-		mounted(){
-			this.seller = this.config.user
-		},
 		methods: {
-			onChange: function(event) {
-				this.picture = event.target.files[0]; // get input file object
-				console.log(this.picture);
-				var reader = new FileReader()
-				reader.readAsDataURL(this.picture)
-				var that = this
-				reader.onload = function() {
-					that.pictureData = this.result
-				}
-			},
 			submitSeller: function() {
-				this.$http.post("/upload", {
-					address: this.seller.address
-				}).then((data) => {
-					console.log(data)
-				})
-			},
-			upload: function() {
-				var that = this;
-				var formData = new FormData();
-				formData.append('picture', this.picture);
-				// specify Content-Type, with formData as well
-				this.$http.post('/upload', formData, {
-					headers: {
-						'Content-Type': 'multipart/form-data'
+				var vm = this
+				this.$http.get(this.ip + "/seller/login", {
+					params: this.seller
+				}).then((res) => {
+					if(res.bodyText!='') {
+						console.log(vm.config)
+						vm.config.user = res.body
+						console.log(vm.config.user)
+						//跳转
+						this.$router.push({
+							path: '/Seller/MainPage'
+						});
+					}else{
+						alert("登录失败")
 					}
-				}).then(function(res) {
-					res.json().then(function(result) {
-						that.result = result.info;
-						console.log(that.result);
-					});
-				}, function(res) {
-					console.log(res.body);
-				});
+				})
 			},
 			returnPrev() {
 				this.$router.go(-1)

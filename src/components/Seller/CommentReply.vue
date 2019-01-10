@@ -2,7 +2,7 @@
 	<div class="container">
 		<div id="detail">
 			<div class="tools">
-				<div class="cog">
+				<div class="cog" @click="returnPrev()">
 					<span class="glyphicon glyphicon-chevron-left"></span>
 				</div>
 				<div class="message">
@@ -74,7 +74,11 @@
 
 <script>
 	export default {
-
+		methods: {
+			returnPrev() {
+				this.$router.go(-1)
+			}
+		}
 	}
 </script>
 

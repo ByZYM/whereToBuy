@@ -15,6 +15,8 @@
 			<router-link :to="{ name: 'AddGood'}">AddGood</router-link>
 			<router-link :to="{ name: 'CommentReply'}">CommentReply</router-link>
 			<router-link :to="{ name: 'SellerDetail'}">SellerDetail</router-link>
+			<router-link :to="{ name: 'SellerSignup'}">SellerSignup</router-link>
+			<router-link :to="{ name: 'SellerLogin'}">SellerLogin</router-link>
 		</div>
 
 	</div>

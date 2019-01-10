@@ -2,7 +2,7 @@
 	<div class="container">
 		<div id="detail">
 			<div class="tools">
-				<div class="cog">
+				<div class="cog" @click="returnPrev()">
 					<span class="glyphicon glyphicon-chevron-left"></span>
 				</div>
 				<div class="message">
@@ -18,50 +18,50 @@
 			<form>
 				<div class="form-group">
 					<div class="input-group input-group-lg">
-						<span class="input-group-addon" id="sizing-addon1">真实姓名</span>
-						<input type="text" class="form-control" placeholder="RealName" aria-describedby="sizing-addon1">
+						<span class="input-group-addon" id="sizing-addon1">账号</span>
+						<input type="text" v-model="seller.name" class="form-control" placeholder="Account" aria-describedby="sizing-addon1">
 					</div>
 				</div>
 				<div class="form-group">
 					<div class="input-group input-group-lg">
-						<span class="input-group-addon" id="sizing-addon2">别名</span>
-						<input type="text" class="form-control" placeholder="AliaName" aria-describedby="sizing-addon2">
+						<span class="input-group-addon" id="sizing-addon2">昵称</span>
+						<input type="text" v-model="seller.nickName" class="form-control" placeholder="NickName" aria-describedby="sizing-addon2">
 					</div>
 				</div>
 				<div class="form-group">
 					<div class="input-group input-group-lg">
-						<span class="input-group-addon" id="sizing-addon3">电话</span>
-						<input type="text" class="form-control" placeholder="Telephone" aria-describedby="sizing-addon3">
+						<span class="input-group-addon" id="sizing-addon3">密码</span>
+						<input type="password" v-model="seller.password" class="form-control" placeholder="Telephone" aria-describedby="sizing-addon3">
 					</div>
 				</div>
 				<div class="form-group">
 					<div class="input-group input-group-lg">
 						<span class="input-group-addon" id="sizing-addon4">手机号</span>
-						<input type="text" class="form-control" placeholder="Mobile" aria-describedby="sizing-addon4">
+						<input type="text" v-model="seller.phone" class="form-control" placeholder="Mobile" aria-describedby="sizing-addon4">
 					</div>
 				</div>
 				<div class="form-group">
 					<div class="input-group input-group-lg">
 						<span class="input-group-addon" id="sizing-addon5">邮箱</span>
-						<input type="email" class="form-control" placeholder="Email" aria-describedby="sizing-addon5">
+						<input type="email" v-model="seller.email" class="form-control" placeholder="Email" aria-describedby="sizing-addon5">
 					</div>
 				</div>
 				<div class="form-group">
 					<div class="input-group input-group-lg">
 						<span class="input-group-addon" id="sizing-addon6">地址</span>
-						<input type="text" class="form-control" placeholder="Address" aria-describedby="sizing-addon6">
+						<input type="text" v-model="seller.address" class="form-control" placeholder="Address" aria-describedby="sizing-addon6">
 					</div>
 				</div>
 				<div class="form-group">
-					
-					<img style="width: 70px;height: 70px;border-radius: 70px;" v-if = 'pictureData!=null' :src="pictureData" >
+
+					<img style="width: 70px;height: 70px;border-radius: 70px;" v-if='pictureData!=null' :src="pictureData">
 					<label v-else>{{picture.name}}</label>
 					<span class="btn btn-success fileinput-button">
 						<span>浏览</span>
 					<input type="file" v-on:change="onChange($event)" id="exampleInputFile" capture="camera" accept="image/*" name="cameraInput" multiple="multiple" />
 					</span>
 				</div>
-				<button type="submit" class="btn btn-lg">提交</button>
+				<button type="submit" @click="submitSeller" class="btn btn-lg">提交</button>
 			</form>
 		</div>
 	</div>
@@ -71,11 +71,17 @@
 	export default {
 		data() {
 			return {
+				seller: {
+
+				},
 				picture: {
 					name: "请上传头像"
 				},
-				pictureData : null
+				pictureData: null
 			}
+		},
+		mounted: function() {
+			//alert(this.ip)
 		},
 		methods: {
 			onChange: function(event) {
@@ -84,25 +90,24 @@
 				var reader = new FileReader()
 				reader.readAsDataURL(this.picture)
 				var that = this
-				reader.onload = function(){
+				reader.onload = function() {
 					that.pictureData = this.result
 				}
 			},
-			submitSeller:function(){
-				this.$http.post("/upload",
-				{
-					address:this.seller.address
-				}
-			).then((data)=>{
-				console.log(data)
-			})
+			submitSeller: function() {
+				this.$http.post(this.ip + "/seller/regist",
+					this.seller
+				).then((data) => {
+					console.log(data)
+				})
 			},
 			upload: function() {
 				var that = this;
 				var formData = new FormData();
+				var vm = this
 				formData.append('picture', this.picture);
 				// specify Content-Type, with formData as well
-				this.$http.post('/upload', formData, {
+				this.$http.post(this.ip + '/upload', formData, {
 					headers: {
 						'Content-Type': 'multipart/form-data'
 					}
@@ -112,8 +117,20 @@
 						console.log(that.result);
 					});
 				}, function(res) {
-					console.log(res.body);
+					console.log(res)
+					if(res.body.length>0) {
+						vm.config.user = res.body
+						//跳转
+						this.$router.push({
+							path: '/Seller/MyShop'
+						});
+					}else{
+						alert("注册失败")
+					}
 				});
+			},
+			returnPrev() {
+				this.$router.go(-1)
 			}
 		}
 	}

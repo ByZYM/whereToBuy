@@ -16,9 +16,16 @@ Vue.use(VueRouter)
 
 Vue.use(VueResource)
 Vue.config.productionTip = false
+Vue.prototype.ip = 'http://39.108.70.119:8080'
+var config = new Vue({
+  data:{
+    user:{}
+  },
+})
 
+Vue.prototype.config=config;
 /* eslint-disable no-new */
-new Vue({
+var vue = new Vue({
   el: '#app',
   router,
   components: { App },
