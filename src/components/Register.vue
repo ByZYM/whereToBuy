@@ -8,18 +8,18 @@
         <div class="top">
           <div class="input-group">
             <span class="input-group-addon" id="basic-addon1"><span class="glyphicon glyphicon-user"></span></span>
-            <input type="text" class="form-control" placeholder="Username" aria-describedby="basic-addon1">
+            <input v-model="userInfo.username" type="text" class="form-control" placeholder="Username" aria-describedby="basic-addon1">
           </div>
           <div class="input-group">
             <span class="input-group-addon" id="basic-addon2"><span class="glyphicon glyphicon-lock"></span></span>
-            <input type="text" class="form-control" placeholder="Password" aria-describedby="basic-addon1">
+            <input v-model="userInfo.password" type="text" class="form-control" placeholder="Password" aria-describedby="basic-addon1">
           </div>
           <div class="input-group">
             <span class="input-group-addon" id="basic-addon3"><span class="glyphicon glyphicon-envelope"></span></span>
-            <input type="text" class="form-control" placeholder="Email" aria-describedby="basic-addon1">
+            <input v-model="userInfo.email" type="text" class="form-control" placeholder="Email" aria-describedby="basic-addon1">
           </div>
           <div>
-            <button id="loginBtn" type="button" class="btn btn-primary">注册</button>
+            <button id="loginBtn" @click="doRegister" type="button" class="btn btn-primary">注册</button>
           </div>
         </div>
       </div>
@@ -32,12 +32,54 @@ export default {
   name: 'Register',
   data () {
     return {
+      userInfo :{
+        username : '',
+        password : '',
+        email: '',
+      },
       msg: 'Welcome to Register'
     }
   },
   methods: {
     returnPrev () {
       this.$router.go(-1)
+    },
+    doRegister () {
+      if (this.username == '') {
+        alert('用户名不能为空');
+        return false
+      }
+      if (this.password == '') {
+        alert('密码名不能为空');
+        return false
+      }
+      if (this.email == '') {
+        alert('邮箱不能为空');
+        return false
+      }
+//      this.$http.get('http://39.108.70.119:8080/user/login', {
+//        params:{username:this.userInfo.username,password:this.userInfo.password,email:this.userInfo.email}}).then(function (res) {
+//        if(res.body.id!=null&&res.body.id!=""){
+//          window.localStorage.setItem("token",true);
+//          window.localStorage.setItem("user",res.body);
+//          this.$router.push({path:'/index'});
+//        }else{
+//          return;
+//        }
+//      })
+
+      //jsonplaceholder.typicode.com/posts
+      this.$http.post('http://39.108.70.119:8080/user/regist',
+//      this.$http.post('http://jsonplaceholder.typicode.com/posts', {
+        {name:this.userInfo.username,password:this.userInfo.password,email:this.userInfo.email}).then((res) => {
+        if(res.data.success){
+          alert(res.data.message);
+          this.$router.push({path:'/login'});
+        }else{
+          alert("注册失败");
+          return;
+        }
+      })
     }
   }
 }

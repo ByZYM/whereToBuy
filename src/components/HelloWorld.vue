@@ -22,6 +22,22 @@ export default {
     return {
       msg: 'Welcome to Your Vue.js App'
     }
+  },
+  methods: {
+    asd(){
+      this.$http.get("http://39.108.70.119:8080/goods/findAll").then(function (res) {
+//        alert(res.body);
+      })
+    },
+    returnPrev(){
+      alert("asd");
+      this.$http.get("http://39.108.70.119:8080/goods/findAll").then(function (res) {
+        alert(res.body);
+      })
+    }
+  },
+  mounted(){
+    this.asd();
   }
 }
 </script>

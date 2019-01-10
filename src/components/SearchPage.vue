@@ -1,9 +1,9 @@
 <template>
-  <div class="searchPage">
-    <div class="container-fluid">
+  <div class="container">
+    <div id="top_container">
       <div class="row">
         <div class="col-xs-1 col-md-1 returnBtn">
-          <img class="img-responsive" @click="returnPrev" src="../assets/return.png" height="41" width="37"/>
+          <img class="img-responsive" @click="returnPrev" src="../assets/return.png"  />
         </div>
         <div class="col-xs-11 col-md-11">
           <div class="input-group">
@@ -13,23 +13,21 @@
           </div>
         </div>
       </div>
-
-      <div class="container-fluid">
-        <div class="box">
-          <div class="row">
-            <div class="col-xs-4 col-md-4">
-              <a href="#">离我最近</a>
-            </div>
-            <div class="col-xs-4 col-md-4">
-              <a href="#">评论最多</a>
-            </div>
-            <div class="col-xs-4 col-md-4">
-              <a href="#">评分最高</a>
-            </div>
-          </div>
+    </div>
+    <div id="middle_container">
+      <div class="row">
+        <div class="col-xs-4 col-md-4">
+          <a href="#">离我最近</a>
+        </div>
+        <div class="col-xs-4 col-md-4">
+          <a href="#">评论最多</a>
+        </div>
+        <div class="col-xs-4 col-md-4">
+          <a href="#">评分最高</a>
         </div>
       </div>
-
+    </div>
+    <div id="bottom_container">
       <div class="row outItem">
         <div class="col-xs-4 col-md-4">
           <a href="#" class="thumbnail">
@@ -106,7 +104,6 @@
           </div>
         </div>
       </div>
-
     </div>
   </div>
 </template>
@@ -129,18 +126,24 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-.searchPage{
-  display: flex;
-  min-height: 100vh;
-  flex-direction: column;
+.container{
+  flex: 1;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
 }
 .itemDetails>div{
   padding: 0px 0px;
 }
-.outItem{
+/*.outItem{
   border:1px solid red;
-}
+}*/
 .returnBtn{
   padding: 0px 0px;
+}
+.row {
+  margin-right: 0;
+  margin-left: 0;
 }
 </style>

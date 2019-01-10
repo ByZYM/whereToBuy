@@ -6,7 +6,15 @@ import router from './router'
 import './assets/bootstrap/js/jquery.slim.min.js'
 import './assets/bootstrap/css/bootstrap.css'
 import './assets/bootstrap/js/bootstrap.js'
+import VueResource from 'vue-resource'
 
+import VueRouter from 'vue-router'
+import Router from 'vue-router'
+
+Vue.use(Router)
+Vue.use(VueRouter)
+
+Vue.use(VueResource)
 Vue.config.productionTip = false
 
 /* eslint-disable no-new */
