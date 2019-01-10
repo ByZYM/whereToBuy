@@ -1,13 +1,13 @@
 <template>
-  <div class="mainPage" id="vfor">
+  <div class="mainPage">
     <div class="container">
       <div class="top">
         <a href="#" style="float: left;">定位</a>
         <a href="#" style="float: right;">登录</a>
       </div>
       <div class="input-group">
-        <input type="text" class="form-control" placeholder="搜索你想要的商品">
-        <span class="input-group-addon" id="basic-addon2"><span class="glyphicon glyphicon-search"></span></span>
+        <input v-model="keywords" type="text" class="form-control" placeholder="搜索你想要的商品">
+        <span class="input-group-addon" id="basic-addon2"><span @click="doSearch" class="glyphicon glyphicon-search"></span></span>
       </div>
 
       <div id="myCarousel" class="carousel slide">
@@ -74,19 +74,15 @@
         </div>
         <div class="box">
           <div class="row">
-            <div v-for="goods in newGoodsList" class="col-xs-4 col-md-4">
+            <div v-if="index<3" v-for="(goods, index) in newGoodsList" class="col-xs-4 col-md-4">
               <a href="#" class="thumbnail">
-                <!--<img src="{{goods.images.split(';')[0]}}" alt="logo">-->
-                <!--<img :src="require(''+goods.images.split(';')[0]+'')"/>-->
-                <!--<img :src="require('../assets/catIcon/'+index+'.jpg')"/>-->
-
-                <img src="../assets/catIcon/3.jpg"/>
-                <!--<img :src="[require(''+goods.images.split(';')[0]+'')]"/>-->
+                <img :src="goods.images.split(';')[1]"/>
               </a>
               {{goods.name}}
               <!--{{goods.images.split(';')[0]}}-->
             </div>
           </div>
+
         </div>
       </div>
 
@@ -96,16 +92,19 @@
 
 <script>
 export default {
-  el: '#vfor',
-//  name: 'MainPage',
+  name: 'MainPage',
   data () {
     return {
       catList:[],
-      newGoodsList:[]
+      newGoodsList:[],
+      keywords:'',
+      msg: 'Welcome to MainPage'
     }
-//    return {
-//      msg: 'Welcome to MainPage'
-//    }
+  },
+  methods: {
+    doSearch(){
+      this.$router.push({name: 'SearchPage', params: {keywords: this.keywords}})
+    }
   },
   mounted(){
     this.$http.get('http://39.108.70.119:8080/type/findAll').then((res) => {
@@ -113,9 +112,8 @@ export default {
     });
     this.$http.get('http://39.108.70.119:8080/goods/newGoods').then((res) => {
       this.newGoodsList=res.body;
-//      alert(this.newGoodsList[0].images);
+//      alert(this.newGoodsList[0].images.split(";")[0]);
     });
-
   }
 
 }

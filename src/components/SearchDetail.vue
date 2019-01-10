@@ -20,7 +20,7 @@
           <li data-target="#myCarousel" data-slide-to="2"></li>
         </ol>
         <!-- 轮播（Carousel）项目 -->
-        <div class="carousel-inner">
+        <!--<div class="carousel-inner">
           <div class="item active">
             <img src="../assets/logo.png" height="160" width="160" alt="First slide"/>
           </div>
@@ -29,6 +29,14 @@
           </div>
           <div class="item">
             <img src="../assets/logo.png" height="160" width="160" alt="Third slide"/>
+          </div>
+        </div>-->
+        <div class="carousel-inner">
+          <div v-if="index==0" class="item active" v-for="(image, index) in SomeImages">
+            <img :src="image" height="160" width="160"/>
+          </div>
+          <div v-else class="item">
+            <img :src="image" height="160" width="160"/>
           </div>
         </div>
         <!-- 轮播（Carousel）导航 -->
@@ -71,7 +79,7 @@
     </div>-->
 
     <div id="bottom_container">
-      <div class="row">
+      <!--<div class="row">
         <div class="col-xs-8 col-md-8">
           <sapn>我是一个很长的地址</sapn>
         </div>
@@ -81,10 +89,10 @@
       </div>
       <div class="row">
         <div class="col-xs-5 col-md-5">
-          <sapn>名字</sapn>
+          <sapn>{{searchOne.name}}</sapn>
         </div>
         <div class="col-xs-5 col-md-5">
-          <sapn>价钱</sapn>
+          <sapn>{{searchOne.price}}</sapn>
         </div>
         <div class="col-xs-2 col-md-2">
           <san class="glyphicon glyphicon-thumbs-up"></san>
@@ -108,11 +116,72 @@
         <div class="col-xs-4 col-md-4">
           <san class="glyphicon glyphicon-thumbs-up"></san>
         </div>
+      </div>-->
+
+      <div class="panel panel-default">
+        <div class="panel-body">
+          <div class="row">
+            <div class="col-xs-8 col-md-8">
+              <sapn>地址:{{searchOneSeller.address}}</sapn>
+            </div>
+            <div class="col-xs-4 col-md-4">
+              <a href="#">去这里</a>
+            </div>
+          </div>
+        </div>
       </div>
+
+      <div class="panel panel-default">
+        <div class="panel-body">
+          <div class="row">
+            <div class="col-xs-5 col-md-5">
+              <sapn>{{searchOneGood.name}}</sapn>
+            </div>
+            <div class="col-xs-5 col-md-5">
+              <sapn>{{searchOneGood.price}}</sapn>
+            </div>
+            <div class="col-xs-2 col-md-2">
+              <san class="glyphicon glyphicon-thumbs-up"></san>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="panel panel-default">
+        <div class="panel-body">
+          <div class="row">
+            <sapn>{{searchOneGood.introduction}}</sapn>
+          </div>
+        </div>
+      </div>
+
+      <div class="panel panel-default">
+        <div class="panel-body">
+          <div class="row">
+            <div class="col-xs-8 col-md-8">
+              <sapn>商铺详细信息</sapn>
+            </div>
+            <div class="col-xs-4 col-md-4">
+              <san class="glyphicon glyphicon-heart-empty"></san>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="panel panel-default">
+        <div class="panel-body">
+          <div class="row">
+            <div class="col-xs-8 col-md-8">
+              <sapn>评论</sapn>
+            </div>
+            <div class="col-xs-4 col-md-4">
+              <san class="glyphicon glyphicon-thumbs-up"></san>
+            </div>
+          </div>
+        </div>
+      </div>
+
     </div>
-
-
-
 
   </div>
 </template>
@@ -122,6 +191,9 @@ export default {
   name: 'SearchDetail',
   data () {
     return {
+      searchOneGood:{},
+      searchOneSeller:{},
+      SomeImages:[],
       msg: 'Welcome to SearchDetail'
     }
   },
@@ -129,6 +201,16 @@ export default {
     returnPrev () {
       this.$router.go(-1)
     }
+  },
+  mounted(){
+//    alert(this.$route.params.id);
+    this.$http.get('http://39.108.70.119:8080/goods/findOne?id='+this.$route.params.goodId).then((res) => {
+      this.searchOneGood=res.body;
+      this.SomeImages=this.searchOneGood.images.split(";");
+    });
+    this.$http.get('http://39.108.70.119:8080/seller/findOne?id='+this.$route.params.sellerId).then((res) => {
+      this.searchOneSeller=res.body;
+    });
   }
 }
 </script>
