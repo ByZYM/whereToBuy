@@ -12,6 +12,9 @@ import VueRouter from 'vue-router'
 import SellerMainPage from '@/components/Seller/SellerMainPage'
 import MyShop from '@/components/Seller/MyShop'
 import AddGood from '@/components/Seller/AddGood'
+import CommentReply from '@/components/Seller/CommentReply'
+import SellerDetail from '@/components/Seller/SellerDetail'
+
 Vue.use(VueRouter)
 //
 // const routes = [
@@ -90,6 +93,17 @@ const router = new VueRouter({
       path: '/Seller/AddGood',
       name: 'AddGood',
       component: AddGood
+    }
+    ,
+    {
+      path: '/Seller/CommentReply',
+      name: 'CommentReply',
+      component: CommentReply
+    },
+    {
+      path: '/Seller/SellerDetail',
+      name: 'SellerDetail',
+      component: SellerDetail
     }
     ,
     {
