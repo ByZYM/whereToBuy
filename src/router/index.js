@@ -8,7 +8,9 @@ import MainPage from '@/components/MainPage'
 import MapNavi from '@/components/Map/MapNavi'
 import SearchPage from '@/components/SearchPage'
 import SearchDetail from '@/components/SearchDetail'
-
+import SellerMainPage from '@/components/Seller/SellerMainPage'
+import MyShop from '@/components/Seller/MyShop'
+import AddGood from '@/components/Seller/AddGood'
 Vue.use(Router)
 
 export default new Router({
@@ -48,6 +50,24 @@ export default new Router({
       name: 'SearchPage',
       component: SearchPage
     },
+    {
+      path: '/Seller/MainPage',
+      name: 'SellerMainPage',
+      component: SellerMainPage
+    }
+    ,
+    {
+      path: '/Seller/MyShop',
+      name: 'MyShop',
+      component: MyShop
+    }
+    ,
+    {
+      path: '/Seller/AddGood',
+      name: 'AddGood',
+      component: AddGood
+    }
+    ,
     {
       path: '/searchDetail',
       name: 'SearchDetail',

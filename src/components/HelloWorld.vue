@@ -9,7 +9,9 @@
     <router-link :to="{ name: 'MapNavi'}">MapNavi</router-link>
     <router-link :to="{ name: 'SearchPage'}">SearchPage</router-link>
     <router-link :to="{ name: 'SearchDetail'}">SearchDetail</router-link>
-
+    <router-link :to="{ name: 'SellerMainPage'}">SellerMainPage</router-link>
+		<router-link :to="{ name: 'MyShop'}">MyShop</router-link>
+		<router-link :to="{ name: 'AddGood'}">AddGood</router-link>
   </div>
 </template>
 
