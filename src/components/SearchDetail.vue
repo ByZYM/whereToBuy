@@ -1,14 +1,17 @@
 <template>
-  <div class="searchDetail">
-    <div class="container">
+  <div class="container">
+    <div id="top_container">
       <div class="row">
         <div class="col-xs-1 col-md-1 returnBtn">
-          <img class="img-responsive" @click="returnPrev" src="../assets/return.png" height="41" width="37"/>
+          <img class="img-responsive" @click="returnPrev" src="../assets/return.png"/>
         </div>
         <div class="col-xs-11 col-md-11">
           <h4>商品详情页</h4>
         </div>
       </div>
+    </div>
+
+    <div id="middle_container">
       <div id="myCarousel" class="carousel slide">
         <!-- 轮播（Carousel）指标 -->
         <ol class="carousel-indicators">
@@ -38,35 +41,36 @@
           <span class="sr-only">Next</span>
         </a>
       </div>
+    </div>
 
-
-      <div class="container">
-        <div class="box">
-          <div class="row">
-            <div class="col-xs-3 col-md-3">
-              <a href="#" class="thumbnail">
-                <img src="../assets/logo.png" alt="logo">
-              </a>
-            </div>
-            <div class="col-xs-3 col-md-3">
-              <a href="#" class="thumbnail">
-                <img src="../assets/logo.png" alt="logo">
-              </a>
-            </div>
-            <div class="col-xs-3 col-md-3">
-              <a href="#" class="thumbnail">
-                <img src="../assets/logo.png" alt="logo">
-              </a>
-            </div>
-            <div class="col-xs-3 col-md-3">
-              <a href="#" class="thumbnail">
-                <img src="../assets/logo.png" alt="logo">
-              </a>
-            </div>
+    <!--<div class="container">
+      <div class="box">
+        <div class="row">
+          <div class="col-xs-3 col-md-3">
+            <a href="#" class="thumbnail">
+              <img src="../assets/logo.png" alt="logo">
+            </a>
+          </div>
+          <div class="col-xs-3 col-md-3">
+            <a href="#" class="thumbnail">
+              <img src="../assets/logo.png" alt="logo">
+            </a>
+          </div>
+          <div class="col-xs-3 col-md-3">
+            <a href="#" class="thumbnail">
+              <img src="../assets/logo.png" alt="logo">
+            </a>
+          </div>
+          <div class="col-xs-3 col-md-3">
+            <a href="#" class="thumbnail">
+              <img src="../assets/logo.png" alt="logo">
+            </a>
           </div>
         </div>
       </div>
+    </div>-->
 
+    <div id="bottom_container">
       <div class="row">
         <div class="col-xs-8 col-md-8">
           <sapn>我是一个很长的地址</sapn>
@@ -105,8 +109,11 @@
           <san class="glyphicon glyphicon-thumbs-up"></san>
         </div>
       </div>
-
     </div>
+
+
+
+
   </div>
 </template>
 
@@ -128,16 +135,20 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-.searchDetail{
-  display: flex;
-  min-height: 100vh;
-  flex-direction: column;
+.container{
+  flex: 1;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
 }
 .carousel-inner img{
   margin: auto;
 }
 .row{
-  border:1px solid red;
+  /*border:1px solid red;*/
+  margin-right: 0;
+  margin-left: 0;
 }
 .row>div{
   padding: 0 0;

@@ -8,15 +8,15 @@
         <div class="top">
           <div class="input-group">
             <span class="input-group-addon" id="basic-addon1"><span class="glyphicon glyphicon-user"></span></span>
-            <input type="text" class="form-control" placeholder="Username" aria-describedby="basic-addon1">
+            <input v-model="userInfo.username" type="text" class="form-control" placeholder="Username" aria-describedby="basic-addon1">
           </div>
           <div class="input-group">
             <span class="input-group-addon" id="basic-addon2"><span class="glyphicon glyphicon-lock"></span></span>
-            <input type="password" class="form-control" placeholder="Password" aria-describedby="basic-addon1">
+            <input v-model="userInfo.password" type="password" class="form-control" placeholder="Password" aria-describedby="basic-addon1">
           </div>
 
           <div>
-            <button id="loginBtn" @click="goMainPage" type="button" class="btn btn-primary">登录</button>
+            <button id="loginBtn" @click="doLogin" type="button" class="btn btn-primary">登录</button>
           </div>
           <div style="height: 1em;">
             <a href="#" style="float: left;">忘记密码</a>
@@ -33,6 +33,10 @@ export default {
   name: 'Login',
   data () {
     return {
+      userInfo :{
+        username : '',
+        password : '',
+      },
       msg: 'Welcome to Login'
     }
   },
@@ -45,6 +49,34 @@ export default {
     },
     goMainPage () {
       this.$router.push({path: 'MainPage'})
+    },
+    doLogin () {
+      if (this.username == '') {
+        alert('用户名不能为空');
+        return false
+      }
+      if (this.password == '') {
+        alert('密码名不能为空');
+        return false
+      }
+//      this.$http.get('http://39.108.70.119:8080/seller/login', JSON.stringify(this.userInfo)).then(function (res) {
+      this.$http.get('http://39.108.70.119:8080/user/login', {params:{username:this.userInfo.username,password:this.userInfo.password}}).then(function (res) {
+//        alert(1)
+        if(res.body.id!=null&&res.body.id!=""){
+//          alert(12)
+          window.localStorage.setItem("token",true);
+          window.localStorage.setItem("user",res.body);
+//          alert(window.localStorage.getItem("token"));
+//          alert(this.$route.query.redirect);
+//          this.$router.push(this.router.query.redirect);
+          this.$router.push({path:'/mainPage'});
+        }else{
+          alert("请先去邮箱激活或请确认密码")
+          return;
+        }
+//        alert(window.localStorage.getItem("token"));
+      })
+
     }
   }
 }

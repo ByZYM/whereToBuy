@@ -1,9 +1,10 @@
 <template>
 	<div class="container">
 		<div id="map_container">
+
 		</div>
 		<div id="route_container">
-			
+
 		</div>
 		<div class="button_container">
 			<div class="col-xs-4">
@@ -22,14 +23,14 @@
 <script>
 export default{
 	mounted(){
-		var map = new BMap.Map("map_container");          // 创建地图实例  
-		var point = new BMap.Point(116.404, 39.915);  // 创建点坐标  
-		map.centerAndZoom(point, 15);                 // 初始化地图，设置中心点坐标和地图级别  
+		var map = new BMap.Map("map_container");          // 创建地图实例
+		var point = new BMap.Point(116.404, 39.915);  // 创建点坐标
+		map.centerAndZoom(point, 15);                 // 初始化地图，设置中心点坐标和地图级别
 		map.enableScrollWheelZoom(true);     //开启鼠标滚轮缩放
-		
-		var marker = new BMap.Marker(point);        // 创建标注    
-		map.addOverlay(marker);                     // 将标注添加到地图中 
-		
+
+		var marker = new BMap.Marker(point);        // 创建标注
+		map.addOverlay(marker);                     // 将标注添加到地图中
+
 		var geolocation = new BMap.Geolocation();
 		geolocation.getCurrentPosition(function(r){
 		if(this.getStatus() == BMAP_STATUS_SUCCESS){
@@ -44,7 +45,7 @@ export default{
 });
 	}
 }
-	
+
 </script>
 
 <style scoped="scoped">
@@ -70,6 +71,6 @@ export default{
 	border-radius: 50%;
 	width: 100px;
 	height: 100px;
-	
+
 }
 </style>

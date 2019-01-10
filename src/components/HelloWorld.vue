@@ -9,6 +9,10 @@
     <router-link :to="{ name: 'MapNavi'}">MapNavi</router-link>
     <router-link :to="{ name: 'SearchPage'}">SearchPage</router-link>
     <router-link :to="{ name: 'SearchDetail'}">SearchDetail</router-link>
+    <router-link :to="{ path: 'https://www.baidu.com'}">append></router-link>
+    <a v-on:click="asd()">39.108.70.119</a>
+    <button v-on:click="asd()">asdasd</button>
+    <button @click="returnPrev">button</button>
 
   </div>
 </template>
@@ -20,6 +24,22 @@ export default {
     return {
       msg: 'Welcome to Your Vue.js App'
     }
+  },
+  methods: {
+    asd(){
+      this.$http.get("http://39.108.70.119:8080/goods/findAll").then(function (res) {
+//        alert(res.body);
+      })
+    },
+    returnPrev(){
+      alert("asd");
+      this.$http.get("http://39.108.70.119:8080/goods/findAll").then(function (res) {
+        alert(res.body);
+      })
+    }
+  },
+  mounted(){
+    this.asd();
   }
 }
 </script>
