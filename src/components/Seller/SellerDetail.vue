@@ -64,7 +64,6 @@
 				<button @click="submitSeller" class="btn btn-lg">提交</button>
 			</form>
 			<div class="form-group">
-
 				<img style="width: 70px;height: 70px;border-radius: 70px;" v-if='pictureData!=null' :src="pictureData">
 				<label v-else>{{picture.name}}</label>
 				<span class="btn btn-success fileinput-button">
@@ -90,9 +89,16 @@
 		},
 		methods: {
 			onChange: function(event) {
+				var that = this;
 				this.picture = event.target.files[0]; // get input file object
 				
-				var that = this;
+				 var reader = new FileReader();
+                        reader.onload = function () {
+                            that.pictureData = reader.result;
+                        };
+                reader.readAsDataURL(this.picture)
+				
+				
 				var formData = new FormData();
 				formData.set('file', event.target.files[0]);
 				console.log(formData.get('file'))

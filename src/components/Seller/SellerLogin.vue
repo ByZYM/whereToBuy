@@ -25,7 +25,7 @@
 				<div class="form-group">
 					<div class="input-group input-group-lg">
 						<span class="input-group-addon" id="sizing-addon3">密码</span>
-						<input type="password" v-model="seller.password" class="form-control" placeholder="Telephone" aria-describedby="sizing-addon3">
+						<input type="password" v-model="seller.password" class="form-control" placeholder="Password" aria-describedby="sizing-addon3">
 					</div>
 				</div>
 				<button @click="submitSeller" class="btn btn-lg">提交</button>

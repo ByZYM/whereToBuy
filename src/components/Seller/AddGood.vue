@@ -15,28 +15,35 @@
 
 		</div>
 		<div id="manage">
-			<img src="../../assets/ico/客户.png" alt="添加图片">
+
 			<div class="input-group input-group-lg">
 				<span class="input-group-addon" id="sizing-addon2">商品名称</span>
-				<input type="text" class="form-control" placeholder="GoodName" aria-describedby="sizing-addon2">
+				<input type="text" class="form-control" v-model="goods.name" placeholder="GoodName" aria-describedby="sizing-addon2">
 			</div>
 			<div class="input-group input-group-lg">
 				<span class="input-group-addon" id="sizing-addon2">商品描述</span>
-				<input type="text" class="form-control" placeholder="GoodDetail" aria-describedby="sizing-addon2">
+				<input type="text" class="form-control" v-model="goods.introduction" placeholder="GoodDetail" aria-describedby="sizing-addon2">
 			</div>
 			<div class="input-group input-group-lg">
 				<span class="input-group-addon" id="sizing-addon2">商品价格</span>
-				<input type="text" class="form-control" placeholder="GoodPrice" aria-describedby="sizing-addon2">
+				<input type="text" class="form-control" v-model="goods.price" placeholder="GoodPrice" aria-describedby="sizing-addon2">
 			</div>
-			<div class="input-group input-group-lg">
-				<span class="input-group-addon" id="sizing-addon2">添加时间</span>
-				<input type="text" class="form-control" placeholder="AddTime" aria-describedby="sizing-addon2">
+
+			<div class="form-group">
+				<!--					<img style="width: 70px;height: 70px;border-radius: 70px;" v-if='pictureData!=null' :src="pictureData">
+-->
+				<!--<label v-else>{{picture.name}}</label>-->
+				<span class="btn btn-success fileinput-button">
+						<img v-if="pictureData!=null" :src="pictureData" alt="上传图片并添加商品">
+						<label v-else>上传图片并添加商品</label>
+				<input type="file" v-on:change="onChange($event)" id="exampleInputFile" capture="camera" accept="image/*" name="cameraInput" multiple="multiple" />
+				</span>
 			</div>
 
 		</div>
 		<div id="buttons">
-			<div>重置</div>
-			<div>添加</div>
+			<div @click="reset">重置</div>
+			<!--<div>添加</div>-->
 		</div>
 
 	</div>
@@ -44,15 +51,104 @@
 
 <script>
 	export default {
+		data() {
+			return {
+				goods: {
+					sellerId: this.config.user.id
+				},
+				picture: null,
+				pictureData: null
+			}
+		},
 		methods: {
+			reset(){
+				this.goods={sellerId: this.config.user.id};this.pictureData=null
+			},
 			returnPrev() {
 				this.$router.go(-1)
+			},
+			onChange: function(event) {
+				var that = this;
+				this.picture = event.target.files[0]; // get input file object
+
+				var reader = new FileReader();
+				reader.onload = function() {
+					that.pictureData = reader.result;
+				};
+				reader.readAsDataURL(this.picture)
+
+				var that = this;
+				var formData = new FormData();
+				formData.set('file', event.target.files[0]);
+				console.log(formData.get('file'))
+				// specify Content-Type, with formData as well
+				this.$http.post(that.ip + '/upload', formData, {
+					headers: {
+						'Content-Type': 'multipart/form-data'
+					}
+				}).then(function(res) {
+					res.json().then(function(result) {
+						console.log(result);
+						if(result.success == true) {
+							that.submitGoods()
+						}
+					});
+				}, function(res) {
+					console.log(res.body);
+				});
+
+				/*console.log(this.picture);
+				var reader = new FileReader()
+				reader.readAsDataURL(this.picture)
+				var that = this
+				reader.onload = function() {
+					that.pictureData = this.result
+					that.upload()
+				}*/
+			},
+			submitGoods: function() {
+				var vm = this
+				this.$http.post(vm.ip + "/seller/addGoods?sellerId="+vm.goods.sellerId, vm.goods).then((res) => {
+					var d = res.body
+					console.log(d)
+					console.log(vm.config.user)
+					if(d.success == true) {
+						alert("添加成功")
+					}
+				})
 			}
 		}
 	}
 </script>
 
 <style scoped="scoped">
+	.fileinput-button {
+		position: relative;
+		/*display: inline-block;*/
+		display: block;
+		overflow: hidden;
+		flex: 2;
+		height: 100px;
+	}
+	
+	img {
+		width: 100%;
+		height: 100%;
+	}
+	.fileinput-button label{
+		display: block;
+		line-height: 100px;
+	}
+	.fileinput-button input {
+		position: absolute;
+		left: 0px;
+		top: 0px;
+		opacity: 0;
+		-ms-filter: 'alpha(opacity=0)';
+		width: 100%;
+		height: 100%;
+	}
+	
 	.container {
 		flex: 1;
 		width: 100%;
@@ -141,11 +237,6 @@
 		background-color: #fff;
 		display: flex;
 		flex-direction: column;
-	}
-	
-	#manage>img {
-		flex: 2;
-		height: 100px;
 	}
 	
 	#manage>div {
