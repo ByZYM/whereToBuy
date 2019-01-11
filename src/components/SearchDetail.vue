@@ -159,7 +159,7 @@
         <div class="panel-body">
           <div class="row">
             <div class="col-xs-8 col-md-8">
-              <sapn>商铺详细信息</sapn>
+              <sapn>商铺详细信息(别名:){{searchOneSeller.nickName}}</sapn>
             </div>
             <div class="col-xs-4 col-md-4">
               <san class="glyphicon glyphicon-heart-empty"></san>
@@ -171,8 +171,8 @@
       <div class="panel panel-default">
         <div class="panel-body">
           <div class="row">
-            <div class="col-xs-8 col-md-8">
-              <sapn>评论</sapn>
+            <div class="col-xs-8 col-md-8" v-for="comment in commentList">
+              <sapn>{{userInfo[1]}}-{{comment.userId}}--{{userInfo[comment.userId]}}的评论:{{comment.content}}</sapn>
             </div>
             <div class="col-xs-4 col-md-4">
               <san class="glyphicon glyphicon-thumbs-up"></san>
@@ -194,6 +194,8 @@ export default {
       searchOneGood:{},
       searchOneSeller:{},
       SomeImages:[],
+      commentList:[],
+      userInfo:[],
       msg: 'Welcome to SearchDetail'
     }
   },
@@ -203,13 +205,26 @@ export default {
     }
   },
   mounted(){
+    var vm = this;
 //    alert(this.$route.params.id);
     this.$http.get('http://39.108.70.119:8080/goods/findOne?id='+this.$route.params.goodId).then((res) => {
-      this.searchOneGood=res.body;
-      this.SomeImages=this.searchOneGood.images.split(";");
+      vm.searchOneGood=res.body;
+      vm.SomeImages=vm.searchOneGood.images.split(";");
     });
     this.$http.get('http://39.108.70.119:8080/seller/findOne?id='+this.$route.params.sellerId).then((res) => {
-      this.searchOneSeller=res.body;
+      vm.searchOneSeller=res.body;
+    });
+    this.$http.get('http://39.108.70.119:8080/comment/getCommentList?goodsId='+this.$route.params.goodId).then((res) => {
+      vm.commentList=res.body;
+    });
+    this.$http.get('http://39.108.70.119:8080/user/findAll').then((res) => {
+//      this.userInfo[res.body.id]=res.body.name;
+
+      for(var i=0;i<res.body.length;i++){
+        var comment = res.body[i];
+        vm.userInfo[comment.id]=comment.name;
+      }
+
     });
   }
 }
