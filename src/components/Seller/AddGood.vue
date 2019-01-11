@@ -90,6 +90,7 @@
 					res.json().then(function(result) {
 						console.log(result);
 						if(result.success == true) {
+							that.goods.images = result.message
 							that.submitGoods()
 						}
 					});
